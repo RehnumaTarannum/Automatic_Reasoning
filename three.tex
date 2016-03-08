@@ -1,0 +1,368 @@
+
+\documentclass[fullpage]{article}
+\usepackage{graphicx}
+
+% THIS FILE HAS TO BE RUN WITH PDFLATEX. IF YOU WANT TO RUN IT WITH LATEX AND YOU HAVE THE FIGURE IN eps, YOU CAN
+% UNCOMMENT THE LINES BELOW. HOWEVER, IT IS EASIER TO PRODUCE FIGURES IN PDF: YOU CAN SEND ALMOST ANYTHING TO A THE "PDF PRINTER"
+%\usepackage{epsfig}
+%\usepackage{epstopdf}
+
+\newcommand{\comlb}[1]{{\vspace{2mm}\noindent \bf REMARK (delete for submission):}~ #1 \hfill {\bf
+    END.}\\}
+
+\title{\vspace*{-2cm}\bf Assignment 3 Submission\\COMP 3400}
+\author{Rehnuma Tarannum\\
+Student Number: 100838870\\ Email: \  rehnumatarannum@cmail.carleton.ca}
+\date{}
+\begin{document}
+\maketitle
+\pagestyle{plain}
+\thispagestyle{empty}
+
+\noindent
+\begin{enumerate}
+\item 
+\begin{description}
+\item (a) I built my knowledge base with the following propositional variables
+\begin{itemize}
+\item a - Argentina is coloured Blue
+\item b- Bolivia coloured Blue
+\item c-Chile is coloured Blue
+\item p -Peru coloured Blue
+\item n - coloured not same color
+\item s - coloured same color
+\item d - share a border
+\end{itemize}
+\vspace{5mm}
+\item (b) The following are my logical equations that depict the rules in trying to color the map with 2 colours.\\\\Equation (a) depicts that since Argentina, Bolivia and Peru share a border they cannot be coloured with same color.\\\\Equation (b) depicts that since Peru, Bolivia and Peru share a border they cannot be coloured with same color\\\\Equation (c) depicts that since Argentina and Peru do not share a border they can be colored with same colour\\\\Equation (d) depicts some condition when they countries are coloured same and share a border\\\\Equation (e) depicts some condition where countries are not same colour and have same border\\
+\begin{enumerate}
+\item
+$ n \leftarrow a, b, c, d$.
+\item 
+$ n \leftarrow p, b, c, d$.
+\item 
+$ s \leftarrow a, p, \neg d$.
+\item 
+$ f \leftarrow s, d$.
+\item 
+$ g \leftarrow n, d$.
+\end{enumerate}
+\vspace{5mm}
+\item [(c)] 
+The main part of input file:
+{\small\begin{verbatim}
+:-dynamic(a/0).
+:-dynamic(c/0).
+:-dynamic(b/0).
+:-dynamic(p/0).
+:-dynamic(n/0).
+:-dynamic(s/0).
+:-dynamic(d/0).
+:-dynamic(f/0).
+:-dynamic(g/0).
+n:- a, b, c, d.
+n:- p, b, c, d.
+s:- a, p, \+d.
+f:- s, d.
+g:- n, d.
+\end{verbatim}}
+\vspace{5mm}
+The First Query:
+{\small \begin{verbatim}
+f.
+\end{verbatim}}
+
+The First Query result
+{\footnotesize \begin{verbatim}
+false
+\end{verbatim}}
+\vspace{5mm}
+The Second Query:
+{\small \begin{verbatim}
+g.
+\end{verbatim}}
+
+The Second Query result
+{\footnotesize \begin{verbatim}
+false
+\end{verbatim}}
+\vspace{5mm}
+Since both queries result in false then the system must be inconsistent hence I conclude that the map of these 4 countries cannot be coloured with 2 colours
+\end{description}
+\newpage
+\item
+\begin{description}
+\item (a) I built my knowledge base with the following propositional variables and rules that mimics the problem statement
+\begin{itemize}
+    \item f - fly
+    \item s - superheroes
+    \item a - is abnormal(as superheroes) 
+    \item b - is abnormal(in his own sense) 
+    \item i - iron-man
+    \item g - green lantern
+    \item m - super-man
+    \item c - wears flying suit
+\end{itemize}
+\vspace{5mm}
+\begin{enumerate}
+    \item 
+    $f \leftarrow s, \neg a.$
+    \item
+    $s \leftarrow m.$
+    \item
+    $s \leftarrow g.$
+    \item 
+    $s \leftarrow i.$
+    \item
+    $a \leftarrow i, \neg b.$
+    \item
+    $b \leftarrow i, c.$
+\end{enumerate}
+\vspace{5mm}
+(a) Superheroes fly if the are not abnormal(as superheroes)
+\\\\(b) Superman is a superhero
+\\\\(c) Green Lantern is a super hero
+\\\\(d) Iron man is a superhero
+\\\\(e) Iron man is abnormal unless he is abnormal(in his own sense)
+\\\\(f) Iron man is abnormal(in his own sense) when he wears a flying suit\\
+\newpage
+\item (b)
+\begin{enumerate}
+    \item 
+    $f \leftarrow s, \neg a.$
+    \item
+    $s \leftarrow m.$
+    \item
+    $s \leftarrow g.$
+    \item 
+    $s \leftarrow i.$
+    \item
+    $a \leftarrow i, \neg b.$
+    \item
+    $b \leftarrow i, c.$
+    \item
+    $s.$
+\end{enumerate}
+\vspace{5mm}
+
+\begin{figure}[h]
+\begin{center}
+ \includegraphics[width=8cm]{tree1.png}
+ \caption{The first refutation tree}\label{fig:sup}
+\end{center}
+\end{figure}
+\newpage
+\begin{figure}[h]
+\begin{center}
+ \includegraphics[width=12cm]{tree2.png}
+ \caption{The second refutation tree}\label{fig:sup}
+\end{center}
+\end{figure}
+\newpage
+\begin{figure}[h]
+\begin{center}
+ \includegraphics[width=12cm]{tree3.png}
+ \caption{The third refutation tree}\label{fig:sup}
+\end{center}
+\end{figure}
+
+\newpage
+\item (e)
+The input for (b)
+{\small\begin{verbatim}
+:-dynamic(s/0).
+:-dynamic(f/0).
+:-dynamic(a/0).
+:-dynamic(m/0).
+
+:-dynamic(i/0).
+:-dynamic(g/0).
+:-dynamic(b/0).
+:-dynamic(c/0).
+f:- s, \+a.
+s:- m.
+s:- g.
+s:- i. 
+a:- i,\+b. 
+b:- i, c.
+s.
+\end{verbatim}}
+\vspace{5mm}
+The input for (c)
+{\small\begin{verbatim}
+:-dynamic(s/0).
+:-dynamic(f/0).
+:-dynamic(a/0).
+:-dynamic(m/0).
+
+:-dynamic(i/0).
+:-dynamic(g/0).
+:-dynamic(b/0).
+:-dynamic(c/0).
+f:- s, \+a.
+s:- m.
+s:- g.
+s:- i. 
+a:- i,\+b. 
+b:- i, c.
+i.
+\end{verbatim}}
+\newpage
+The input for (d)
+{\small\begin{verbatim}
+:-dynamic(s/0).
+:-dynamic(f/0).
+:-dynamic(a/0).
+:-dynamic(m/0).
+
+:-dynamic(i/0).
+:-dynamic(g/0).
+:-dynamic(b/0).
+:-dynamic(c/0).
+f:- s, \+a.
+s:- m.
+s:- g.
+s:- i. 
+a:- i,\+b. 
+b:- i, c.
+i.
+c.
+\end{verbatim}}
+\vspace{5mm}
+Query for all (b), (c), (d):
+{\small \begin{verbatim}
+f.
+\end{verbatim}}
+\vspace{5mm}
+The Query result for (b)
+{\footnotesize \begin{verbatim}
+true
+\end{verbatim}}
+\vspace{5mm}
+The Query result for (c)
+{\footnotesize \begin{verbatim}
+false
+\end{verbatim}}
+\vspace{5mm}
+The Query result for (d)
+{\footnotesize \begin{verbatim}
+true
+\end{verbatim}}
+
+
+\end{description}
+\end{enumerate}
+
+
+\newpage
+\section*{Appendix: Input/Output Files}
+The path for 1 (c)
+\vspace{5mm}
+{\small\begin{verbatim}
+Call:f
+ Call:s
+ Call:m
+ Fail:m
+ Redo:s
+ Call:g
+ Fail:g
+ Redo:s
+ Call:i
+ Fail:i
+ Redo:s
+ Exit:s
+ Call:a
+ Call:i
+ Fail:i
+ Fail:a
+ Redo:f
+ Exit:f
+ true
+\end{verbatim}}
+\vspace{5mm}
+The path for 2 (b)
+\vspace{5mm}
+{\small\begin{verbatim}
+Call:f
+ Call:s
+ Call:m
+ Fail:m
+ Redo:s
+ Call:g
+ Fail:g
+ Redo:s
+ Call:i
+ Fail:i
+ Redo:s
+ Exit:s
+ Call:a
+ Call:i
+ Fail:i
+ Fail:a
+ Redo:f
+ Exit:f
+ true
+\end{verbatim}}
+
+\vspace{5mm}
+The path for 2 (c)
+\vspace{5mm}
+{\small\begin{verbatim}
+ Call:f
+ Call:s
+ Call:m
+ Fail:m
+ Redo:s
+ Call:g
+ Fail:g
+ Redo:s
+ Call:i
+ Exit:i
+ Exit:s
+ Call:a
+ Call:i
+ Exit:i
+ Call:b
+ Call:i
+ Exit:i
+ Call:c
+ Fail:c
+ Fail:b
+ Redo:a
+ Exit:a
+ Fail:f
+ false
+\end{verbatim}}
+\vspace{5mm}
+The path for 2 (d)
+\vspace{5mm}
+{\small\begin{verbatim}
+Call:f
+ Call:s
+ Call:m
+ Fail:m
+ Redo:s
+ Call:g
+ Fail:g
+ Redo:s
+ Call:i
+ Exit:i
+ Exit:s
+ Call:a
+ Call:i
+ Exit:i
+ Call:b
+ Call:i
+ Exit:i
+ Call:c
+ Exit:c
+ Exit:b
+ Fail:a
+ Redo:f
+ Exit:f
+ true
+\end{verbatim}}
+\vspace{5mm}
+
+
+\end{document} 

@@ -1,0 +1,140 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Comp 3400 Assignment 2}
+\author{Rehnuma Tarannum 100838870}
+\date{13 February 2016}
+
+\begin{document}
+
+\maketitle
+\begin{enumerate}
+    \item 
+    \begin{description}
+    \item[(a)] Propositional Variables, the Observation and Equations
+    \begin{itemize}
+        \item q - gate X1 working abnormally
+        \item p- gate A1 working abnormally
+        \item r- gate A2 working abnormally
+        \item s - gate X2 working abnormally
+        \item t - gate O1 working abnormally
+        \item f - output if gate X1 is 1
+        \item g - output if gate A1 is 1
+        \item h - output if gate A2 is 1
+        \item $ a \wedge \neg b \wedge c \wedge \neg d \wedge \neg e $.
+        \item $ \neg q \rightarrow ( f \leftrightarrow ( a \oplus b)) $.
+        \item $ \neg p \rightarrow ( g \leftrightarrow ( a \& b )$.
+        \item $ \neg r \rightarrow ( h \leftrightarrow ( f \& c))$.
+        \item $ \neg s \rightarrow ( d \leftrightarrow ( f \oplus c))$.
+        \item $ \neg t \rightarrow ( e \leftrightarrow ( h \vee g))$.
+    \end{itemize}
+    \item [(b)] Given the weak model above prover9 will try to reach the goal and 
+    find a contradiction and cases where if fails will be the minimal conflicts 
+    among the goal subset.
+    \item[(c)] The prover9 inputs and goal
+    \begin{itemize}
+        \item $ a \wedge \neg b \wedge c \wedge \neg d \wedge \neg e $.
+        \item $ \neg q \rightarrow ( f \leftrightarrow ( a \oplus b)) $.
+        \item $ \neg p \rightarrow ( g \leftrightarrow ( a \& b )$.
+        \item $ \neg r \rightarrow ( h \leftrightarrow ( f \& c))$.
+        \item $ \neg s \rightarrow ( d \leftrightarrow ( f \oplus c))$.
+        \item $ \neg t \rightarrow ( e \leftrightarrow ( h \vee g))$.
+        \item $ q \vee p \vee r \vee s \vee t$.
+    \end{itemize}
+    \begin{verbatim}
+    ============================== prooftrans ============================
+    Prover9 (32) version Dec-2007, Dec 2007.
+    Process 576 was started by rehnumatarannum on Rehnumas-MBP,
+    Fri Feb 12 20:24:05 2016
+    The command was "/Applications/Prover9-Mace4-v05B.app/Contents/Resources
+    /bin-mac-intel/prover9".
+    ============================== end of head ===========================
+
+    ============================== end of input ==========================
+
+    ============================== PROOF =================================
+
+    % -------- Comments from original proof --------
+    % Proof 1 at 0.00 (+ 0.00) seconds.
+    % Length of proof is 18.
+    % Level of proof is 4.
+    % Maximum clause weight is 4.
+    % Given clauses 0.
+
+    1 -q -> (f <-> -a & b | a & -b) # label(non_clause).  [assumption].
+    3 -r -> (h <-> f & c) # label(non_clause).  [assumption].
+    5 -t -> (e <-> h | g) # label(non_clause).  [assumption].
+    6 a & -b & c & -d & -e # label(non_clause).  [assumption].
+    7 p | q | r | s | t # label(non_clause) # label(goal).  [goal].
+    11 q | f | -a | b.  [clausify(1)].
+    17 r | h | -f | -c.  [clausify(3)].
+    23 t | e | -h.  [clausify(5)].
+    25 a.  [clausify(6)].
+    26 -b.  [clausify(6)].
+    27 c.  [clausify(6)].
+    29 -e.  [clausify(6)].
+    31 -q.  [deny(7)].
+    32 -r.  [deny(7)].
+    34 -t.  [deny(7)].
+    35 f.  [back_unit_del(11),unit_del(a,31),unit_del(c,25),unit_del(d,26)].
+    37 h.  [back_unit_del(17),unit_del(a,32),unit_del(c,35),unit_del(d,27)].
+    38 $F.  [back_unit_del(23),unit_del(a,34),unit_del(b,29),unit_del(c,37)].
+
+    ============================== end of proof ==========================
+    \end{verbatim}
+    \item[(d)] The Second Test inputs, goal and result
+    \begin{itemize}
+        \item $ a \wedge b \wedge c \wedge \neg d \wedge \neg e $.
+        \item $ \neg q \rightarrow ( f \leftrightarrow ( a \oplus b)) $.
+        \item $ \neg p \rightarrow ( g \leftrightarrow ( a \& b )$.
+        \item $ \neg r \rightarrow ( h \leftrightarrow ( f \& c))$.
+        \item $ \neg s \rightarrow ( d \leftrightarrow ( f \oplus c))$.
+        \item $ \neg t \rightarrow ( e \leftrightarrow ( h \vee g))$.
+        \item $ q \vee p \vee r \vee s \vee t$.
+    \end{itemize}
+    
+    \begin{verbatim}
+    ==============================prooftrans===========================
+    Prover9 (32) version Dec-2007, Dec 2007.
+    Process 586 was started by rehnumatarannum on Rehnumas-MBP,
+    Fri Feb 12 20:26:44 2016
+    The command was "/Applications/Prover9-Mace4-v05B.app/Contents/Resources/
+    bin-mac-intel/prover9".
+    ============================== end of head ========================
+
+    =========================== end of input ==========================
+
+    ============================ PROOF ================================
+
+    % -------- Comments from original proof --------
+    % Proof 1 at 0.00 (+ 0.00) seconds.
+    % Length of proof is 14.
+    % Level of proof is 3.
+    % Maximum clause weight is 4.
+    % Given clauses 0.
+
+    1 -q -> (f <-> -a & b | a & -b) # label(non_clause).  [assumption].
+    4 -s -> (d <-> -f & c | f & -c) # label(non_clause).  [assumption].
+    6 a & b & c & -d & -e # label(non_clause).  [assumption].
+    7 p | q | r | s | t # label(non_clause) # label(goal).  [goal].
+    8 q | -f | -a | -b.  [clausify(1)].
+    20 s | d | f | -c.  [clausify(4)].
+    25 a.  [clausify(6)].
+    26 b.  [clausify(6)].
+    27 c.  [clausify(6)].
+    28 -d. [clausify(6)].
+    31 -q. [deny(7)].
+    33 -s. [deny(7)].
+    36 -f. [back_unit_del(8),unit_del(a,31),unit_del(c,25),unit_del(d,26)].
+    37 $F. [back_unit_del(20),unit_del(a,33),unit_del(b,28),unit_del(c,36)
+    ,unit_del(d,27)].
+
+    =========================== end of proof ==========================
+
+    \end{verbatim}
+    
+
+    \end{description}
+\end{enumerate}
+
+\end{document}
